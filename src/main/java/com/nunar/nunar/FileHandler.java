@@ -43,6 +43,32 @@ public class FileHandler {
             e.printStackTrace();
             throw new Exception("파일 변환 불가");
         }
-        return type + "/" + newFile;
+        return newFile;
     }
+
+    public String getModelUrl(MultipartFile model) throws Exception {
+        String absolutePath = new File("").getAbsolutePath() + "\\";
+        String type = "models/";
+        File file = new File(type);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        if (model.isEmpty()) {
+            throw new Exception("파일을 확인해 주세요");
+        }
+        String contentType = model.getContentType();
+        String originalFileExtension = ".glTF";
+        if (ObjectUtils.isEmpty(contentType)) {
+            throw new Exception("파일을 확인해 주세요");
+        }
+        if(!contentType.contains("model/gltf+json")) {
+            throw new Exception("glTF 파일을 선택해 주세요 Not " + contentType);
+        }
+        System.out.println(contentType);
+        String newFile = UUID.randomUUID() + originalFileExtension;
+        file = new File(absolutePath + type + "/" + newFile);
+        model.transferTo(file);
+        return newFile;
+    }
+
 }

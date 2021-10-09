@@ -2,8 +2,10 @@ package com.nunar.nunar.controller;
 
 import com.nunar.nunar.exception.CustomException;
 import com.nunar.nunar.model.Image;
+import com.nunar.nunar.model.Model;
 import com.nunar.nunar.response.BaseResponse;
 import com.nunar.nunar.service.UploadService;
+import org.springframework.security.crypto.encrypt.BouncyCastleAesCbcBytesEncryptor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,4 +28,9 @@ public class UploadController {
         return new BaseResponse<>(200, "성공적으로 업로드했습니다", image.getImageUrl());
     }
 
+    @PostMapping("/model")
+    public BaseResponse<String> uploadModel(@RequestParam MultipartFile file) throws CustomException {
+        Model model = uploadService.uploadModel(file);
+        return new BaseResponse<>(200, "성공적으로 업로드했습니다", model.getModelUrl());
+    }
 }
