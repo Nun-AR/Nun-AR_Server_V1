@@ -34,7 +34,6 @@ public class AuthService {
                     new UsernamePasswordAuthenticationToken(loginRequest.getId(), loginRequest.getPassword())
             );
         } catch (Exception e) {
-            e.printStackTrace();
             throw new CustomException(HttpStatus.NOT_FOUND, "아이디 또는 패스워드를 확인해 주세요");
         }
         return jwtUtil.generateToken(loginRequest.getId());
