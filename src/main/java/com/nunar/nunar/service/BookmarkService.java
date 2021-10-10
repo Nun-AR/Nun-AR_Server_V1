@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,7 +34,7 @@ public class BookmarkService {
     public List<PostResponse> getMyBookmarks(String token) throws CustomException {
         String userId = jwtUtil.extractUsername(token);
         User user = userRepository.findById(userId);
-        return getBookmarksByUserIdx(user.getUserIdx());
+        return getBookmarksByUserIdx(token, user.getUserIdx());
     }
 
     public void postBookmark(String token, int postIdx) throws CustomException {
@@ -60,18 +59,20 @@ public class BookmarkService {
         bookmarkRepository.delete(bookmark);
     }
 
-    public List<PostResponse> getBookmarksByUserIdx(int userIdx) throws CustomException {
+    public List<PostResponse> getBookmarksByUserIdx(String token, int userIdx) throws CustomException {
+        User my = userRepository.findById(jwtUtil.extractUsername(token));
+        List<Post> myBookmark = bookmarkRepository.getBookmarkByUser(my).stream().map(Bookmark::getPost).collect(Collectors.toList());
         User user = userRepository.findById(userIdx)
                 .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "해당 사용자가 존재하지 않습니다"));
-        List<Bookmark> bookmarks = bookmarkRepository.getPostByUser(user);
+        List<Bookmark> bookmarks = bookmarkRepository.getBookmarkByUser(user);
         return bookmarks.stream()
                 .map(Bookmark::getPost)
                 .map(it -> new PostResponse(it.getPostIdx(),
                         it.getUser().getUserIdx(),
                         it.getWriter(),
                         it.getTitle(),
-                        it.getBookmarks(),
-                        it.getIsBookmarks(),
+                        bookmarkRepository.getBookmarkByPost(it).size(),
+                        myBookmark.contains(it),
                         it.getTag(),
                         it.getThumbnail(),
                         it.getFileUrl()))

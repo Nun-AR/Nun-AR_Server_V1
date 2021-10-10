@@ -20,14 +20,14 @@ public class PostController {
     }
 
     @GetMapping("")
-    public BaseResponse<List<PostResponse>> getAllPost() {
-        List<PostResponse> postResponses = postService.getAllPost();
+    public BaseResponse<List<PostResponse>> getAllPost(@RequestHeader("Authorization") String token) {
+        List<PostResponse> postResponses = postService.getAllPost(token.substring(7));
         return new BaseResponse<>(200, "모든 게시글 조회 성공", postResponses);
     }
 
     @GetMapping("/{postIdx}")
-    public BaseResponse<PostResponse> getPostByIdx(@PathVariable int postIdx) throws CustomException{
-        PostResponse postResponse = postService.getPostByIdx(postIdx);
+    public BaseResponse<PostResponse> getPostByIdx(@RequestHeader("Authorization") String token, @PathVariable int postIdx) throws CustomException{
+        PostResponse postResponse = postService.getPostByIdx(token.substring(7), postIdx);
         return new BaseResponse<>(200, "게시글 조회 성공", postResponse);
     }
 
@@ -39,8 +39,8 @@ public class PostController {
     }
 
     @GetMapping("/user/{userIdx}")
-    public BaseResponse<List<PostResponse>> getPostByUserIdx(@PathVariable int userIdx) throws CustomException{
-        List<PostResponse> postResponses = postService.getPostByUserIdx(userIdx);
+    public BaseResponse<List<PostResponse>> getPostByUserIdx(@RequestHeader("Authorization") String token, @PathVariable int userIdx) throws CustomException{
+        List<PostResponse> postResponses = postService.getPostByUserIdx(token.substring(7), userIdx);
         return new BaseResponse<>(200, "성공적으로 조회하였습니다", postResponses);
     }
 
@@ -51,8 +51,8 @@ public class PostController {
     }
 
     @GetMapping("/popular")
-    public BaseResponse<List<PostResponse>> getPopularResponse() {
-        List<PostResponse> postResponses = postService.getPopularPost();
+    public BaseResponse<List<PostResponse>> getPopularResponse(@RequestHeader("Authorization") String token) {
+        List<PostResponse> postResponses = postService.getPopularPost(token.substring(7));
         return new BaseResponse<>(200, "성공적으로 조회하였습니다.", postResponses);
     }
 

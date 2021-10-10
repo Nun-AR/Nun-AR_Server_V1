@@ -38,8 +38,8 @@ public class BookmarkController {
     }
 
     @GetMapping("/user/{userIdx}")
-    public BaseResponse<List<PostResponse>> getBookmarksByUserIdx(@PathVariable int userIdx) throws CustomException {
-        return new BaseResponse<>(200, "성공적으로 조회하였습니다", bookmarkService.getBookmarksByUserIdx(userIdx));
+    public BaseResponse<List<PostResponse>> getBookmarksByUserIdx(@RequestHeader("Authorization") String token, @PathVariable int userIdx) throws CustomException {
+        return new BaseResponse<>(200, "성공적으로 조회하였습니다", bookmarkService.getBookmarksByUserIdx(token.substring(7), userIdx));
     }
 
 }
