@@ -47,7 +47,7 @@ public class FileHandler {
     }
 
     public String getModelUrl(MultipartFile model) throws Exception {
-        String absolutePath = new File("").getAbsolutePath() + "\\";
+        String absolutePath = new File("").getAbsolutePath() + "/";
         String type = "models/";
         File file = new File(type);
         if (!file.exists()) {
