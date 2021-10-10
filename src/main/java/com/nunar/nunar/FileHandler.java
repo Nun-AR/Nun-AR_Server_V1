@@ -12,7 +12,7 @@ import java.util.UUID;
 @Component
 public class FileHandler {
     public String getImageUrl(MultipartFile image) throws Exception {
-        String absolutePath = new File("").getAbsolutePath() + "\\";
+        String absolutePath = new File("").getAbsolutePath() + "/";
         String type = "images/";
         File file = new File(type);
         if (!file.exists()) {
