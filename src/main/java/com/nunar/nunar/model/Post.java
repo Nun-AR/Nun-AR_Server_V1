@@ -27,12 +27,6 @@ public class Post {
     @Column(name = "title")
     private String title;
 
-    @Column(name ="bookmarks")
-    private Integer bookmarks;
-
-    @Column(name = "isBookmark")
-    private Boolean isBookmarks;
-
     @Column(name = "tag")
     private String tag;
 
