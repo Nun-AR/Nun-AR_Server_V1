@@ -20,20 +20,20 @@ public class PostController {
     }
 
     @GetMapping("")
-    public BaseResponse<List<PostResponse>> getAllPost() throws CustomException{
+    public BaseResponse<List<PostResponse>> getAllPost() {
         List<PostResponse> postResponses = postService.getAllPost();
-        return new BaseResponse<List<PostResponse>>(200, "모든 게시글 조회 성공", postResponses);
+        return new BaseResponse<>(200, "모든 게시글 조회 성공", postResponses);
     }
 
     @GetMapping("/{postIdx}")
     public BaseResponse<PostResponse> getPostByIdx(@PathVariable int postIdx) throws CustomException{
         PostResponse postResponse = postService.getPostByIdx(postIdx);
-        return new BaseResponse<PostResponse>(200, "게시글 조회 성공", postResponse);
+        return new BaseResponse<>(200, "게시글 조회 성공", postResponse);
     }
 
     @DeleteMapping("/{postIdx}")
-    public BaseResponse<Void> deletePost(@RequestHeader(value="x-access-token") String token, @PathVariable int userIdx) throws CustomException{
-        postService.deletePost(token, userIdx);
+    public BaseResponse<Void> deletePost(@RequestHeader(value="Authorization") String token, @PathVariable int postIdx) throws CustomException{
+        postService.deletePost(token.substring(7), postIdx);
         return new BaseResponse<>(200, "성공적으로 삭제했습니다", null);
 
     }
@@ -45,13 +45,13 @@ public class PostController {
     }
 
     @PostMapping("")
-    public BaseResponse<Void> writePost(@RequestHeader(value="x-access-token") String token, @RequestBody PostRequest postRequest) throws CustomException{
-        postService.writePost(token, postRequest);
+    public BaseResponse<Void> writePost(@RequestHeader(value="Authorization") String token, @RequestBody PostRequest postRequest) throws CustomException{
+        postService.writePost(token.substring(7), postRequest);
         return new BaseResponse<>(200, "성공적으로 작성했습니다.", null);
     }
 
     @GetMapping("/popular")
-    public BaseResponse<List<PostResponse>> getPopularResponse() throws CustomException{
+    public BaseResponse<List<PostResponse>> getPopularResponse() {
         List<PostResponse> postResponses = postService.getPopularPost();
         return new BaseResponse<>(200, "성공적으로 조회하였습니다.", postResponses);
     }
