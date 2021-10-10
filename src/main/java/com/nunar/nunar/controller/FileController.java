@@ -16,7 +16,7 @@ public class FileController {
     @GetMapping(value = "/image/{url}", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_GIF_VALUE, MediaType.IMAGE_PNG_VALUE})
     public @ResponseBody
     byte[] getImage(@PathVariable String url) throws IOException {
-        String absolutePath = new File("").getAbsolutePath() + "\\" + "images//";
+        String absolutePath = new File("").getAbsolutePath() + "/" + "images//";
         File file = new File(absolutePath + url);
         InputStream in = new FileInputStream(file);
         return IOUtils.toByteArray(in);
@@ -24,7 +24,7 @@ public class FileController {
 
     @GetMapping(value = "/model/{url}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody byte[] getModel(@PathVariable String url) throws IOException {
-        String absolutePath = new File("").getAbsolutePath() + "\\" + "models//";
+        String absolutePath = new File("").getAbsolutePath() + "/" + "models//";
         File file = new File(absolutePath + url);
         InputStream in = new FileInputStream(file);
         return IOUtils.toByteArray(in);
