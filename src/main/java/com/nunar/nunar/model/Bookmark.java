@@ -16,12 +16,12 @@ import java.io.Serializable;
 public class Bookmark {
 
     @Id
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne()
     @JoinColumn(name = "user")
     private User user;
 
     @Id
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne()
     @JoinColumn(name = "post")
     private Post post;
 
