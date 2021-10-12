@@ -11,6 +11,6 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     @Query("FROM Post p WHERE p.user.userIdx = :userIdx")
     public List<Post> getPostByUser(@Param("userIdx") int userIdx);
 
-    @Query(value = "SELECT * FROM Post p ORDER BY p.bookmarks DESC LIMIT 3", nativeQuery = true)
+    @Query(value = "select b.post from Bookmark b group by b.post order by count(b.post) desc")
     public List<Post> getPopularPost();
 }

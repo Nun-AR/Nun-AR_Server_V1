@@ -85,8 +85,9 @@ public class PostService {
     }
 
     public List<PostResponse> getPopularPost(String token) {
-        List<Post> postList = postRepository.getPopularPost();
-        return getPostResponses(token, postList);
+        List<Post> postList = postRepository
+                .getPopularPost();
+        return getPostResponses(token, postList.subList(0, Math.min(postList.size(), 3)));
     }
 
     private List<PostResponse> getPostResponses(String token, List<Post> postList) {
