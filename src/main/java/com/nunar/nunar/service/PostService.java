@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -70,8 +71,7 @@ public class PostService {
 
     public List<PostResponse> getPostByUserIdx(String token, int userIdx) throws CustomException {
         userRepository.findById(userIdx).orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "해당하는 사용자가 존재하지 않습니다."));
-        List<Post> postList = postRepository.getPostByUser(userIdx);
-        return getPostResponses(token, postList);
+        return getPostResponses(token, postRepository.getPostByUser(userIdx));
     }
 
     public void writePost(String token, PostRequest postRequest) throws CustomException {
@@ -105,6 +105,11 @@ public class PostService {
                         it.getThumbnail(),
                         it.getFileUrl())
         ).collect(Collectors.toList());
+    }
+
+    public List<PostResponse> searchPost(String token, String searchWord) {
+        return getAllPost(token).stream().filter(post -> post.getTitle().contains(searchWord) ||
+                Arrays.stream(post.getTag().split("#")).anyMatch(tag -> tag.contains(searchWord))).collect(Collectors.toList());
     }
 
 }
