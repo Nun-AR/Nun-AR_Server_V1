@@ -57,7 +57,7 @@ public class FileHandler {
             throw new Exception("파일을 확인해 주세요");
         }
         String contentType = model.getContentType();
-        String originalFileExtension = ".glTF";
+        String originalFileExtension = ".gltf";
         if (ObjectUtils.isEmpty(contentType)) {
             throw new Exception("파일을 확인해 주세요");
         }
