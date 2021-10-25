@@ -75,7 +75,9 @@ public class BookmarkService {
                         myBookmark.contains(it),
                         it.getTag(),
                         it.getThumbnail(),
-                        it.getFileUrl()))
+                        it.getFileUrl(),
+                        it.getUser().getProfileUrl()
+                        ))
                 .collect(Collectors.toList());
     }
 
