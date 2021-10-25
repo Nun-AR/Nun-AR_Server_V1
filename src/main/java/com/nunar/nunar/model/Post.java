@@ -33,6 +33,6 @@ public class Post {
     @Column(name = "thumbnail")
     private String thumbnail;
 
-    @Column(name = "fileUrl")
+    @Column(name = "file_url")
     private String fileUrl;
 }

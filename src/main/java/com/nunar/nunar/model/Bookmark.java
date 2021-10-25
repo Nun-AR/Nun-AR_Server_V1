@@ -17,12 +17,12 @@ public class Bookmark {
 
     @Id
     @ManyToOne()
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "user_idx")
     private User user;
 
     @Id
     @ManyToOne()
-    @JoinColumn(name = "post")
+    @JoinColumn(name = "post_idx")
     private Post post;
 
     @Data

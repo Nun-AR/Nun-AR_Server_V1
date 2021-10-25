@@ -35,3 +35,4 @@ build/
 ### Upload Files ###
 images/**
 models/**
+src/main/resources/application-config.properties
