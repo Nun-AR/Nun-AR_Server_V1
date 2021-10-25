@@ -17,4 +17,5 @@ public class PostResponse {
     private String tag;
     private String thumbnail;
     private String fileUrl;
+    private String profileUrl;
 }

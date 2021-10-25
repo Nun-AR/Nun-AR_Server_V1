@@ -51,7 +51,8 @@ public class PostService {
                 userBookmarks.contains(post),
                 post.getTag(),
                 post.getThumbnail(),
-                post.getFileUrl()
+                post.getFileUrl(),
+                user.getProfileUrl()
         );
     }
 
@@ -103,7 +104,8 @@ public class PostService {
                         userBookmarks.contains(it),
                         it.getTag(),
                         it.getThumbnail(),
-                        it.getFileUrl())
+                        it.getFileUrl(),
+                        it.getUser().getProfileUrl())
         ).collect(Collectors.toList());
     }
 
