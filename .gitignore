@@ -36,3 +36,4 @@ build/
 images/**
 models/**
 src/main/resources/application-config.properties
+src/main/resources/application-path.properties

@@ -6,13 +6,19 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 import java.util.UUID;
 
 @Component
 public class FileHandler {
+    private final PathComponent pathComponent;
+
+    public FileHandler(PathComponent pathComponent) {
+        this.pathComponent = pathComponent;
+    }
+
     public String getImageUrl(MultipartFile image) throws Exception {
-        String absolutePath = new File("").getAbsolutePath() + "/";
+        System.out.println(pathComponent.getPath());
+        String absolutePath = new File(pathComponent.getPath()).getAbsolutePath() + "/";
         String type = "images/";
         File file = new File(type);
         if (!file.exists()) {
@@ -47,7 +53,7 @@ public class FileHandler {
     }
 
     public String getModelUrl(MultipartFile model) throws Exception {
-        String absolutePath = new File("").getAbsolutePath() + "/";
+        String absolutePath = new File(pathComponent.getPath()).getAbsolutePath() + "/";
         String type = "models/";
         File file = new File(type);
         if (!file.exists()) {
