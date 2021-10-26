@@ -14,11 +14,11 @@ import javax.persistence.*;
 public class Post {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer postIdx;
 
     @ManyToOne
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "user_idx")
     private User user;
 
     @Column(name = "writer")
