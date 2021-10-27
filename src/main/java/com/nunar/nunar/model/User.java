@@ -1,5 +1,6 @@
 package com.nunar.nunar.model;
 
+import com.nunar.nunar.response.UserResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,4 +29,8 @@ public class User {
 
     @Column(name = "profileUrl")
     private String profileUrl;
+
+    public UserResponse toUserResponse() {
+        return new UserResponse(name, profileUrl);
+    }
 }
