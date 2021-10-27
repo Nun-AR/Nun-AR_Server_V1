@@ -55,8 +55,8 @@ public class PostController {
         return new BaseResponse<>(200, "성공적으로 조회하였습니다.", postService.getPopularPost(token.substring(7)));
     }
 
-    @GetMapping("/search/{searchWord}")
-    public BaseResponse<List<PostResponse>> searchPost(@RequestHeader("Authorization") String token, @PathVariable String searchWord) {
+    @GetMapping("/search")
+    public BaseResponse<List<PostResponse>> searchPost(@RequestHeader("Authorization") String token, @RequestParam String searchWord) {
         return new BaseResponse<>(200, "", postService.searchPost(token.substring(7), searchWord));
     }
 

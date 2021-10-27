@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -109,9 +110,18 @@ public class PostService {
         ).collect(Collectors.toList());
     }
 
-    public List<PostResponse> searchPost(String token, String searchWord) {
-        return getAllPost(token).stream().filter(post -> post.getTitle().contains(searchWord) ||
-                Arrays.stream(post.getTag().split("#")).anyMatch(tag -> tag.contains(searchWord))).collect(Collectors.toList());
+    public List<PostResponse> searchPost(String token, String _searchWord) {
+        List<String> searchWordList = Arrays.asList(_searchWord.toLowerCase(Locale.ROOT).replace("#", " ").split(""));
+
+        return getAllPost(token).stream().filter(post -> {
+                    String title = post.getTitle().toLowerCase(Locale.ROOT);
+                    List<String> tags = Arrays.stream(post.getTag().split("#")).map(it -> it.toLowerCase(Locale.ROOT)).collect(Collectors.toList());
+                    return searchWordList.stream().anyMatch(searchWord ->
+                            title.contains(searchWord) || tags.stream().anyMatch(tag -> tag.contains(searchWord))
+                    );
+                }
+        ).collect(Collectors.toList());
+
     }
 
 }
