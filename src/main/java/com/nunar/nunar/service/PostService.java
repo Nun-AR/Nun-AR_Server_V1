@@ -76,14 +76,14 @@ public class PostService {
         return getPostResponses(token, postRepository.getPostByUser(userIdx));
     }
 
-    public void writePost(String token, PostRequest postRequest) throws CustomException {
+    public int writePost(String token, PostRequest postRequest) throws CustomException {
         if (token == null) {
             throw new CustomException(HttpStatus.UNAUTHORIZED, "토큰이 전송되지 않았습니다.");
         }
 
         User user = userRepository.findById(jwtUtil.extractUsername(token));
         Post post = new Post(0, user, user.getName(), postRequest.getTitle(), postRequest.getTag(), postRequest.getThumbnail(), postRequest.getFileUrl());
-        postRepository.save(post);
+        return postRepository.save(post).getPostIdx();
     }
 
     public List<PostResponse> getPopularPost(String token) {

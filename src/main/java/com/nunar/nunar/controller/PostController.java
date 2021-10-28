@@ -45,9 +45,9 @@ public class PostController {
     }
 
     @PostMapping("")
-    public BaseResponse<Void> writePost(@RequestHeader(value="Authorization") String token, @RequestBody PostRequest postRequest) throws CustomException{
-        postService.writePost(token.substring(7), postRequest);
-        return new BaseResponse<>(200, "성공적으로 작성했습니다.", null);
+    public BaseResponse<Integer> writePost(@RequestHeader(value="Authorization") String token, @RequestBody PostRequest postRequest) throws CustomException{
+        int postIdx = postService.writePost(token.substring(7), postRequest);
+        return new BaseResponse<>(200, "성공적으로 작성했습니다.", postIdx);
     }
 
     @GetMapping("/popular")
