@@ -27,10 +27,10 @@ public class User {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "profileUrl")
+    @Column(name = "profile_url")
     private String profileUrl;
 
     public UserResponse toUserResponse() {
-        return new UserResponse(name, profileUrl);
+        return new UserResponse(userIdx, name, profileUrl);
     }
 }
