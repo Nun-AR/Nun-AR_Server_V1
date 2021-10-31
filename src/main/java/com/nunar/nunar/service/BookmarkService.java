@@ -69,7 +69,7 @@ public class BookmarkService {
                 .map(Bookmark::getPost)
                 .map(it -> new PostResponse(it.getPostIdx(),
                         it.getUser().getUserIdx(),
-                        it.getWriter(),
+                        it.getUser().getName(),
                         it.getTitle(),
                         bookmarkRepository.getBookmarkByPost(it).size(),
                         myBookmark.contains(it),
