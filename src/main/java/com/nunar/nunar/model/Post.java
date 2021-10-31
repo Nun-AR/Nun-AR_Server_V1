@@ -21,9 +21,6 @@ public class Post {
     @JoinColumn(name = "user_idx")
     private User user;
 
-    @Column(name = "writer")
-    private String writer;
-
     @Column(name = "title")
     private String title;
 

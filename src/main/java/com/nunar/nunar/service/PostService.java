@@ -46,7 +46,7 @@ public class PostService {
         return new PostResponse(
                 post.getPostIdx(),
                 post.getUser().getUserIdx(),
-                post.getWriter(),
+                post.getUser().getName(),
                 post.getTitle(),
                 bookmarkRepository.getBookmarkByPost(post).size(),
                 userBookmarks.contains(post),
@@ -82,7 +82,7 @@ public class PostService {
         }
 
         User user = userRepository.findById(jwtUtil.extractUsername(token));
-        Post post = new Post(0, user, user.getName(), postRequest.getTitle(), postRequest.getTag(), postRequest.getThumbnail(), postRequest.getFileUrl());
+        Post post = new Post(0, user, postRequest.getTitle(), postRequest.getTag(), postRequest.getThumbnail(), postRequest.getFileUrl());
         return postRepository.save(post).getPostIdx();
     }
 
@@ -99,7 +99,7 @@ public class PostService {
         return postList.stream().map(it ->
                 new PostResponse(it.getPostIdx(),
                         it.getUser().getUserIdx(),
-                        it.getWriter(),
+                        it.getUser().getName(),
                         it.getTitle(),
                         bookmarkRepository.getBookmarkByPost(it).size(),
                         userBookmarks.contains(it),
