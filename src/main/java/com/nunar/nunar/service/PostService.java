@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -35,6 +36,7 @@ public class PostService {
 
     public List<PostResponse> getAllPost(String token) {
         List<Post> postList = postRepository.findAll();
+        Collections.reverse(postList);
         return getPostResponses(token, postList);
     }
 
